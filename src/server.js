@@ -1,12 +1,14 @@
 const express = require("express");
 const AppDataSource = require("./config/data-source");
 const userRoutes = require("./route/userRoutes");
+const authRoutes = require("./route/authRoutes");
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
+app.use("/auth", authRoutes);
 
 AppDataSource.initialize()
   .then(() => {

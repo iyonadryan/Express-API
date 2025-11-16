@@ -1,4 +1,5 @@
 const { EntitySchema, BaseEntity } = require("typeorm");
+const { IdColumn, BaseEntityColumns } = require("./base/BaseEntityModel");
 
 class User extends BaseEntity {}
 
@@ -9,34 +10,30 @@ module.exports = {
         tableName: "users",
         target: User,
         columns: {
-            id: {
-                primary: true,
-                type: "uuid",
-                generated: "uuid", // <- generate UUID otomatis
-            },
-            name: {
-                type: "varchar",
-                length: 100,
-            },
+            ...IdColumn,
             email: {
                 type: "varchar",
                 unique: true,
+                length: 100,
             },
-
-            // AUTO FIELDS dari TypeORM
-            createdAt: {
-                type: "timestamp",
-                createDate: true,
+            password: {
+                type: "varchar",
+                length: 255,
             },
-            updatedAt: {
-                type: "timestamp",
-                updateDate: true,
+            username: {
+                type: "varchar",
+                unique: true,
+                length: 30,
             },
-            deletedAt: {
-                type: "timestamp",
-                deleteDate: true,
-                nullable: true,
+            firstname: {
+                type: "varchar",
+                length: 30,
             },
+            lastname: {
+                type: "varchar",
+                length: 30,
+            },
+            ...BaseEntityColumns,
         }
     })
 };
